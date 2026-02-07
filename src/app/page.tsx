@@ -9,6 +9,8 @@ export default async function Home() {
   if (user) {
     redirect('/dashboard');
   }
+  // Landing Page optimized for Vercel
+
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-[url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center">
