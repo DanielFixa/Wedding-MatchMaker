@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Wedding Matchmaker 💍",
+  title: "Wedding Matchmaker 💍   ",
   description: "Matching our dream wedding decor ✨",
 };
 
