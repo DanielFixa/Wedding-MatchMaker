@@ -1,14 +1,21 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Heart, RefreshCcw, ThumbsDown, Trash2 } from 'lucide-react';
 import { reconsiderVote } from '@/actions/gallery';
 
+interface GalleryItem {
+    id: string;
+    image_url: string;
+    item_description: string | null;
+    vote_type: string;
+}
+
 interface GalleryClientProps {
-    matches: any[];
-    limbo: any[];
+    matches: GalleryItem[];
+    limbo: GalleryItem[];
 }
 
 export default function GalleryClient({ matches, limbo }: GalleryClientProps) {
@@ -33,8 +40,8 @@ export default function GalleryClient({ matches, limbo }: GalleryClientProps) {
                 <button
                     onClick={() => setActiveTab('matches')}
                     className={`px-6 py-2 rounded-full font-semibold transition-all flex items-center gap-2 ${activeTab === 'matches'
-                            ? 'bg-gold text-white shadow-lg scale-105'
-                            : 'bg-white dark:bg-gray-800 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700'
+                        ? 'bg-gold text-white shadow-lg scale-105'
+                        : 'bg-white dark:bg-gray-800 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700'
                         }`}
                 >
                     <Heart className="w-4 h-4" fill={activeTab === 'matches' ? "currentColor" : "none"} />
@@ -43,8 +50,8 @@ export default function GalleryClient({ matches, limbo }: GalleryClientProps) {
                 <button
                     onClick={() => setActiveTab('limbo')}
                     className={`px-6 py-2 rounded-full font-semibold transition-all flex items-center gap-2 ${activeTab === 'limbo'
-                            ? 'bg-gray-800 dark:bg-white text-white dark:text-black shadow-lg scale-105'
-                            : 'bg-white dark:bg-gray-800 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700'
+                        ? 'bg-gray-800 dark:bg-white text-white dark:text-black shadow-lg scale-105'
+                        : 'bg-white dark:bg-gray-800 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700'
                         }`}
                 >
                     <ThumbsDown className="w-4 h-4" />

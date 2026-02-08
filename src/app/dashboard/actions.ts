@@ -14,7 +14,7 @@ function generateRoomCode() {
     return result;
 }
 
-export async function createRoom(prevState: any, formData: FormData) {
+export async function createRoom(prevState: unknown, formData: FormData) {
     const start = Date.now();
     const supabase = await createClient()
 
@@ -69,7 +69,7 @@ export async function createRoom(prevState: any, formData: FormData) {
 
         if (unsplashImages.status === 'fulfilled') {
             // Filter (Mission 2: Set Filter)
-            finalImages = (unsplashImages.value as any[]).filter((img: any) => !votedSet.has(img.urls.regular));
+            finalImages = (unsplashImages.value as any[]).filter((img: { urls: { regular: string } }) => !votedSet.has(img.urls.regular));
         } else {
             console.warn('[PERF] Unsplash timed out or failed. Using fallback.');
         }
@@ -103,7 +103,7 @@ export async function createRoom(prevState: any, formData: FormData) {
                 category: category === 'random' ? `Results: ${searchQuery}` : category,
                 card_count: cardCount,
                 status: 'waiting',
-                images: finalImages as any
+                images: finalImages as any // eslint-disable-line @typescript-eslint/no-explicit-any
             })
             .select()
             .single()
@@ -113,13 +113,13 @@ export async function createRoom(prevState: any, formData: FormData) {
         console.log(`[PERF] Room created in: ${Date.now() - start} ms`);
         return { success: true, roomId: data.id }
 
-    } catch (e: any) {
-        console.error('Create Room Critical Error:', e)
+    } catch (error: unknown) {
+        console.error('Create Room Critical Error:', error)
         return { error: 'System busy. Please try again.' }
     }
 }
 
-export async function joinRoom(prevState: any, formData: FormData) {
+export async function joinRoom(prevState: unknown, formData: FormData) {
     const start = Date.now();
     const supabase = await createClient()
 
@@ -162,7 +162,7 @@ export async function joinRoom(prevState: any, formData: FormData) {
         console.log(`[PERF] Join Room processed in: ${Date.now() - start} ms`);
         return { success: true, roomId: room.id }
 
-    } catch (e: any) {
+    } catch (error: unknown) {
         return { error: 'Error joining room.' }
     }
 }

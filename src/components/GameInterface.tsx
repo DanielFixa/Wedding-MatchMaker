@@ -25,7 +25,7 @@ export default function GameInterface({ roomId, images, targetVotes }: GameInter
 
     // Initial Data Fetch & Hydration
     useEffect(() => {
-        setHydrated(true);
+        setTimeout(() => setHydrated(true), 0);
         const fetchInitialState = async () => {
             const { count } = await supabase
                 .from('votes')
@@ -89,7 +89,7 @@ export default function GameInterface({ roomId, images, targetVotes }: GameInter
     const bgLikeOpacity = useTransform(x, [0, 150], [0, 0.5]);
     const bgNopeOpacity = useTransform(x, [-150, 0], [0.5, 0]);
 
-    const handleDragEnd = async (event: any, info: PanInfo) => {
+    const handleDragEnd = async (event: unknown, info: PanInfo) => {
         if (info.offset.x > 100) await swipe('like');
         else if (info.offset.x < -100) await swipe('nope');
     };

@@ -11,7 +11,6 @@ export default function LobbyPage() {
     const supabase = createClient();
     const [roomCode, setRoomCode] = useState<string>('...');
     const [copied, setCopied] = useState(false);
-    const [status, setStatus] = useState('waiting');
 
     useEffect(() => {
         // 1. Initial Check
@@ -43,7 +42,7 @@ export default function LobbyPage() {
                 },
                 (payload) => {
                     console.log('Lobby: Realtime update received!', payload);
-                    const newRoom = payload.new as any;
+                    const newRoom = payload.new as { status: string, guest_id: string };
 
                     if (newRoom.status === 'active' || newRoom.guest_id) {
                         console.log('Lobby: Game Active! Redirecting to /play');

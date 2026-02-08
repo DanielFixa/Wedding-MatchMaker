@@ -1,0 +1,49 @@
+{
+    "tech_stack": [
+        "TypeScript",
+        "Next.js",
+        "Supabase",
+        "Tailwind CSS",
+        "Framer Motion"
+    ],
+    "features": [
+        {
+            "name": "Authentication",
+            "description": "User login and registration functionality using Supabase Auth.",
+            "files": [
+                "src/app/login/page.tsx",
+                "src/app/register/page.tsx"
+            ]
+        },
+        {
+            "name": "Dashboard",
+            "description": "User dashboard showing active rooms and navigations.",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "name": "Room Management",
+            "description": "Creation and interaction with voting rooms.",
+            "files": [
+                "src/app/room/page.tsx",
+                "src/actions/game.ts"
+            ]
+        },
+        {
+            "name": "Gallery",
+            "description": "Image gallery and asset management for voting items.",
+            "files": [
+                "src/app/gallery/page.tsx",
+                "src/actions/gallery.ts"
+            ]
+        },
+        {
+            "name": "Search",
+            "description": "Search functionality for rooms and content.",
+            "files": [
+                "src/app/search/page.tsx"
+            ]
+        }
+    ]
+}

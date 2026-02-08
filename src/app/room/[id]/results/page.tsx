@@ -60,7 +60,7 @@ export default function ResultsPage() {
     return (
         <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white">
             <header className="py-8 text-center bg-gold/10">
-                <h1 className="text-4xl font-serif text-gold font-bold mb-2">It's a Match!</h1>
+                <h1 className="text-4xl font-serif text-gold font-bold mb-2">It&apos;s a Match!</h1>
                 <p className="text-gray-600 dark:text-gray-300">
                     You found {matches.length} matches together.
                 </p>

@@ -2,8 +2,8 @@
 
 import { createRoom, joinRoom } from './actions';
 import { useActionState, useEffect, useState } from 'react'; // Fixed import for Next.js 15
-import { Loader2, Heart, Gem, House, Camera, Sparkles, Shuffle, LogOut } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Loader2, Heart, Gem, House, Camera, Sparkles, Shuffle, LogOut, Search } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
 
@@ -100,7 +100,28 @@ export default function Dashboard() {
 
 
 
-                        {/* Gallery Link */}
+
+                        {/* Search Suppliers Link */}
+                        <div className="mt-6 mb-4">
+                            <button
+                                type="button"
+                                onClick={() => router.push('/search')}
+                                className="w-full p-4 rounded-xl border border-gold/30 bg-gold/5 hover:bg-gold/10 text-gold hover:text-white hover:border-gold transition-all flex items-center justify-between group"
+                            >
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-gold/10 rounded-full text-gold group-hover:bg-gold group-hover:text-white transition-colors">
+                                        <Search size={20} />
+                                    </div>
+                                    <div className="text-left">
+                                        <div className="font-semibold text-sm">Find Suppliers</div>
+                                        <div className="text-xs opacity-60">Browse Venues, Florists & More</div>
+                                    </div>
+                                </div>
+                                <div className="text-gold opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
+                                    →
+                                </div>
+                            </button>
+                        </div>
                         <div className="mb-6">
                             <button
                                 type="button"
@@ -112,7 +133,7 @@ export default function Dashboard() {
                                         <Heart size={20} />
                                     </div>
                                     <div className="text-left">
-                                        <div className="font-semibold text-sm">Couple's Memory</div>
+                                        <div className="font-semibold text-sm">Couple&apos;s Memory</div>
                                         <div className="text-xs opacity-60">View your matches & history</div>
                                     </div>
                                 </div>

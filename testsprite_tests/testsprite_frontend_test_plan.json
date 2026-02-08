@@ -1,0 +1,416 @@
+[
+  {
+    "id": "TC001",
+    "title": "User Registration Success",
+    "description": "Verify that a new user can successfully register with valid email and password credentials and authentication state persists.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the registration page"
+      },
+      {
+        "type": "action",
+        "description": "Input a valid email address and valid password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm registration success message is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm user is logged in and authentication state persists across page reload"
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "User Registration Failure with Invalid Email",
+    "description": "Verify registration fails when user inputs an invalid email format and appropriate error message is shown.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the registration page"
+      },
+      {
+        "type": "action",
+        "description": "Input an invalid email address and a valid password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm error message about invalid email format is displayed"
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "User Login Success",
+    "description": "Verify login is successful using valid email and password and authentication state persists.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the login page"
+      },
+      {
+        "type": "action",
+        "description": "Enter valid registered user email and password"
+      },
+      {
+        "type": "action",
+        "description": "Click the login button"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm user is successfully logged in and redirected to dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm authentication state persists after page reload"
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "User Login Failure with Incorrect Password",
+    "description": "Verify login fails with incorrect password and correct error message is shown.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the login page"
+      },
+      {
+        "type": "action",
+        "description": "Enter valid email and incorrect password"
+      },
+      {
+        "type": "action",
+        "description": "Click the login button"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm error message about incorrect credentials is displayed"
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Dashboard Display Active Rooms",
+    "description": "Verify that the dashboard properly displays all active rooms associated with the logged-in user.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Log in as a user with existing active rooms"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the dashboard page"
+      },
+      {
+        "type": "assertion",
+        "description": "Check all active rooms for the user are listed"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm room titles and categories are correctly displayed"
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Create New Room by Category",
+    "description": "Verify user can create a new matching room by selecting a wedding category and the room is available in dashboard and lobby.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Log in as registered user"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to dashboard page"
+      },
+      {
+        "type": "action",
+        "description": "Select option to create a new room"
+      },
+      {
+        "type": "action",
+        "description": "Choose a wedding category from the available list"
+      },
+      {
+        "type": "action",
+        "description": "Confirm room creation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new room is listed on the dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify user is directed to the room lobby and sees a waiting state"
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "Join Existing Room with Valid Code",
+    "description": "Verify that a user can join an existing room using a valid 5-character code and sees the lobby or current session appropriately.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Log in as registered user"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the dashboard page"
+      },
+      {
+        "type": "action",
+        "description": "Select option to join a room"
+      },
+      {
+        "type": "action",
+        "description": "Enter a valid 5-character room code"
+      },
+      {
+        "type": "action",
+        "description": "Confirm join action"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify user joins room and sees room lobby or session interface"
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "Join Existing Room with Invalid Code",
+    "description": "Verify that joining a room with invalid or non-existent 5-character code shows appropriate error message.",
+    "category": "error handling",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Log in as registered user"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Select option to join a room"
+      },
+      {
+        "type": "action",
+        "description": "Enter an invalid or non-existent 5-character code"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to join room"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify appropriate error message is displayed indicating room not found"
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Room Lobby Waiting until Partner Joins",
+    "description": "Verify that when a user creates a room and waits in the lobby, appropriate waiting UI is shown until partner joins.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "User A creates a new room and enters lobby"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify UI shows waiting message or indicator for partner to join"
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "Real-time Sync of Room Session Inputs",
+    "description": "Verify that swiping and matching decisions made by one user in the room are instantly synchronized and reflected on the partner's screen.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "User A and User B join the same active room session"
+      },
+      {
+        "type": "action",
+        "description": "User A swipes right on a wedding item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the swipe action is immediately reflected on User B's interface"
+      },
+      {
+        "type": "action",
+        "description": "User B swipes left on another item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the swipe action is immediately reflected on User A's interface"
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "Supplier Search Returns Results under 200ms",
+    "description": "Verify that the supplier search query returns accurate results within 200 milliseconds.",
+    "category": "performance",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the supplier search page"
+      },
+      {
+        "type": "action",
+        "description": "Perform a search query with valid parameters"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm the search results are displayed within 200 milliseconds"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify search results match query parameters and contain relevant supplier cards"
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Supplier Search Filters by Category, Location, and Price",
+    "description": "Verify search filters correctly filter supplier cards by category, location, and price range independently and combined.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the supplier search page"
+      },
+      {
+        "type": "action",
+        "description": "Apply filter by category only and submit search"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm all results match the selected category"
+      },
+      {
+        "type": "action",
+        "description": "Apply filter by location only and submit search"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm all results are from the selected location"
+      },
+      {
+        "type": "action",
+        "description": "Apply filter by price range only and submit search"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm all results fall within the price range"
+      },
+      {
+        "type": "action",
+        "description": "Apply combined filters for category, location, and price and submit search"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm returned results satisfy all combined filter criteria"
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Supplier Cards Display Images, Ratings, and Functional Shortlist Button",
+    "description": "Verify supplier cards show correct images, ratings, and the shortlist/like button works correctly to add or remove supplier from shortlist.",
+    "category": "ui",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Perform a supplier search returning multiple results"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify each supplier card displays an image"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify each supplier card displays the rating"
+      },
+      {
+        "type": "action",
+        "description": "Click the shortlist button on a supplier card"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm supplier is added to shortlist and UI updates accordingly"
+      },
+      {
+        "type": "action",
+        "description": "Click the shortlist button again to remove the supplier"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm supplier is removed from shortlist and UI updates"
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "Shortlisted Suppliers Integrated into Matching Rooms",
+    "description": "Verify shortlisted suppliers can be seen and are available to be used inside decision-making rooms for collaborative swiping.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Shortlist multiple suppliers from the search page"
+      },
+      {
+        "type": "action",
+        "description": "Create or join a matching room"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the swiping interface inside the room"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the shortlisted suppliers appear as swipeable items"
+      }
+    ]
+  }
+]

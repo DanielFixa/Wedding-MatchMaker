@@ -1,0 +1,142 @@
+
+> app@0.1.0 lint
+> eslint
+
+
+C:\Users\dgarc\Documents\Antrigravity\Wedding-MatchMaker\src\app\auth\actions.ts
+   7:40  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  26:41  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\dgarc\Documents\Antrigravity\Wedding-MatchMaker\src\app\dashboard\actions.ts
+    5:10  warning  'redirect' is defined but never used        @typescript-eslint/no-unused-vars
+    6:10  warning  'revalidatePath' is defined but never used  @typescript-eslint/no-unused-vars
+   17:45  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+   64:48  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+   68:26  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+   72:52  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+   72:72  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+   84:83  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+   86:59  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+  106:40  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+  116:17  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+  122:43  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+  165:14  warning  'e' is defined but never used               @typescript-eslint/no-unused-vars
+  165:17  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+
+C:\Users\dgarc\Documents\Antrigravity\Wedding-MatchMaker\src\app\dashboard\page.tsx
+    6:18  warning  'AnimatePresence' is defined but never used                      @typescript-eslint/no-unused-vars
+  136:86  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\dgarc\Documents\Antrigravity\Wedding-MatchMaker\src\app\gallery\GalleryClient.tsx
+   4:18  warning  'AnimatePresence' is defined but never used  @typescript-eslint/no-unused-vars
+  10:14  error    Unexpected any. Specify a different type     @typescript-eslint/no-explicit-any
+  11:12  error    Unexpected any. Specify a different type     @typescript-eslint/no-explicit-any
+
+C:\Users\dgarc\Documents\Antrigravity\Wedding-MatchMaker\src\app\gallery\page.tsx
+  3:8   warning  'Image' is defined but never used           @typescript-eslint/no-unused-vars
+  4:10  warning  'Heart' is defined but never used           @typescript-eslint/no-unused-vars
+  4:17  warning  'Trash2' is defined but never used          @typescript-eslint/no-unused-vars
+  4:36  warning  'RefreshCcw' is defined but never used      @typescript-eslint/no-unused-vars
+  4:48  warning  'ThumbsDown' is defined but never used      @typescript-eslint/no-unused-vars
+  6:10  warning  'reconsiderVote' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\dgarc\Documents\Antrigravity\Wedding-MatchMaker\src\app\room\[id]\lobby\page.tsx
+  14:12  warning  'status' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  14:20  warning  'setStatus' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  46:52  error    Unexpected any. Specify a different type        @typescript-eslint/no-explicit-any
+
+C:\Users\dgarc\Documents\Antrigravity\Wedding-MatchMaker\src\app\room\[id]\play\page.tsx
+  49:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\dgarc\Documents\Antrigravity\Wedding-MatchMaker\src\app\room\[id]\results\page.tsx
+  63:80  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\dgarc\Documents\Antrigravity\Wedding-MatchMaker\src\app\search\page.tsx
+  14:48  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-explicit-any
+  25:9   error    Error: Cannot access variable before it is declared
+
+`fetchData` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+C:\Users\dgarc\Documents\Antrigravity\Wedding-MatchMaker\src\app\search\page.tsx:25:9
+  23 |     useEffect(() => {
+  24 |         // Initial load
+> 25 |         fetchData();
+     |         ^^^^^^^^^ `fetchData` accessed before it is declared
+  26 |         fetchLocations();
+  27 |     }, []);
+  28 |
+
+C:\Users\dgarc\Documents\Antrigravity\Wedding-MatchMaker\src\app\search\page.tsx:34:5
+  32 |     }
+  33 |
+> 34 |     const fetchData = async () => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 35 |         setLoading(true);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 36 |         const res = await searchSuppliers({ category, location, priceRange });
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 37 |         if (res.data) {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 38 |             setSuppliers(res.data);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 39 |         }
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 40 |         setLoading(false);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 41 |     };
+     | ^^^^^^^ `fetchData` is declared here
+  42 |
+  43 |     const handleSearch = (e: React.FormEvent) => {
+  44 |         e.preventDefault();  react-hooks/immutability
+  26:9   error    Error: Cannot access variable before it is declared
+
+`fetchLocations` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+C:\Users\dgarc\Documents\Antrigravity\Wedding-MatchMaker\src\app\search\page.tsx:26:9
+  24 |         // Initial load
+  25 |         fetchData();
+> 26 |         fetchLocations();
+     |         ^^^^^^^^^^^^^^ `fetchLocations` accessed before it is declared
+  27 |     }, []);
+  28 |
+  29 |     const fetchLocations = async () => {
+
+C:\Users\dgarc\Documents\Antrigravity\Wedding-MatchMaker\src\app\search\page.tsx:29:5
+  27 |     }, []);
+  28 |
+> 29 |     const fetchLocations = async () => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 30 |         const locs = await getUniqueLocations();
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 31 |         setLocations(locs);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 32 |     }
+     | ^^^^^^ `fetchLocations` is declared here
+  33 |
+  34 |     const fetchData = async () => {
+  35 |         setLoading(true);                                                                                                                                                                                                             react-hooks/immutability
+  27:8   warning  React Hook useEffect has a missing dependency: 'fetchData'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react-hooks/exhaustive-deps
+
+C:\Users\dgarc\Documents\Antrigravity\Wedding-MatchMaker\src\components\GameInterface.tsx
+   3:20  warning  'useRef' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+  13:13  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-explicit-any
+  28:9   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\dgarc\Documents\Antrigravity\Wedding-MatchMaker\src\components\GameInterface.tsx:28:9
+  26 |     // Initial Data Fetch & Hydration
+  27 |     useEffect(() => {
+> 28 |         setHydrated(true);
+     |         ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  29 |         const fetchInitialState = async () => {
+  30 |             const { count } = await supabase
+  31 |                 .from('votes')  react-hooks/set-state-in-effect
+  92:41  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-explicit-any
+
+Ô£û 40 problems (25 errors, 15 warnings)
+

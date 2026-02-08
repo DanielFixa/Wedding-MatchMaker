@@ -46,7 +46,7 @@ export default async function PlayPage({ params }: { params: Promise<{ id: strin
 
                 <GameInterface
                     roomId={room.id}
-                    images={room.images as any[]}
+                    images={room.images as unknown[]}
                     targetVotes={targetVotes}
                 />
             </div>

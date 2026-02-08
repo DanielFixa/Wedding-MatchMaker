@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import Image from "next/image";
-import { Heart, Trash2, ArrowLeft, RefreshCcw, ThumbsDown } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { reconsiderVote } from "@/actions/gallery";
 import GalleryClient from "./GalleryClient";
