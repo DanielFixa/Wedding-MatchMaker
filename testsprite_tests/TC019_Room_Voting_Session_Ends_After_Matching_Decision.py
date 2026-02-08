@@ -48,19 +48,19 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000", wait_until="commit", timeout=10000)
         
-        # -> Click the 'Get Started' link to navigate to the login page.
+        # -> Click the 'Get Started' button to proceed to the next page (login/onboarding) and continue the voting session test.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/main/div/a[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Click the 'Get Started' link on the landing page to navigate to the login page (use element index 47).
+        # -> Click the 'Get Started' button to navigate to the login/onboarding page so the test can proceed to signing in and simulating the swipe/match flow.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/main/div/a[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Fill the email and password fields and submit the login form (use input indices 377 and 380, then click index 381).
+        # -> Fill the login form with User A credentials and click 'Sign In' to reach the voting/lobby page so voting behavior can be tested.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
@@ -69,87 +69,51 @@ async def run_test():
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('dANIELFIXA@2')
+        await page.wait_for_timeout(3000); await elem.fill('Danielfixa@2')
         
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Open the registration page by clicking 'Create an account' so the test can register the user (click element index 383).
+        # -> Start creating a room as the host by selecting a category (Dresses) so the room code can be generated and the session started (then prepare to join as second user or observe session state).
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
+        elem = frame.locator('xpath=html/body/div[2]/main/div[1]/form/div[1]/div[1]/div[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Click the 'Create an account' link (index 383) to open the registration page so the test can register the user.
+        # -> Click the 'Create & Host' button to create the room and reveal the room code/lobby so the test can continue with joining as User B.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
+        elem = frame.locator('xpath=html/body/div[2]/main/div[1]/form/button').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Fill the registration form with full name, email (you@teste.com) and password (dANIELFIXA@2) and submit by clicking 'Create Account'.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('You & Test')
+        # -> Open a new tab and navigate to the app home so User B can sign in (prepare to join the room).
+        await page.goto("http://localhost:3000", wait_until="commit", timeout=10000)
         
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('you@teste.com')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[3]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('dANIELFIXA@2')
-        
-        # -> Click the 'Create Account' button to submit the registration form (use element index 826).
+        # -> Select deck size (10 cards) then click Create & Host to create the room and reveal the room code/lobby so the second user can join.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
+        elem = frame.locator('xpath=html/body/div[2]/main/div[1]/form/div[5]/div/button[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Wait for registration to finish. If registration page stays, click 'Sign in' to go to login, then submit saved credentials to sign in and confirm dashboard.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
+        elem = frame.locator('xpath=html/body/div[2]/main/div[2]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Click the 'Sign in' link on the registration page to navigate to the login page (element index 832).
+        # -> Attempt to close the Join Room modal by clicking the modal/backdrop container (element index 1370). If that closes the modal, then proceed to click the Create & Host control to create the room (next actions will be scheduled after observing the new page state).
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
-        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
-        
-        # -> Fill the visible email and password fields (indices 1361 and 1366) with the registered credentials and click the Sign In button (index 1369) to attempt login.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('you@teste.com')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('dANIELFIXA@2')
-        
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
-        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
-        
-        # -> Attempt login again by clicking the visible 'Sign In' button (index 1369), wait for the response, then extract/return visible indicators (URL if available, visible texts including 'Dashboard','Welcome','Logout' or errors like 'Invalid login credentials'/'User already registered', and whether 'Signing In...' remains).
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
+        elem = frame.locator('xpath=html/body/div[2]/main/div[2]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
         # --> Assertions to verify final state
         frame = context.pages[-1]
         try:
-            await expect(frame.locator('text=Dashboard').first).to_be_visible(timeout=3000)
+            await expect(frame.locator('text=Voting Complete').first).to_be_visible(timeout=3000)
         except AssertionError:
-            raise AssertionError("Test case failed: Expected the registered user to be redirected to the dashboard and see 'Dashboard' (verifying successful login and persisted session after reload), but the dashboard text was not visible")
+            raise AssertionError("Test case failed: The test attempted to verify that after the couple matched on an item the room voting session would end or advance (showing 'Voting Complete'), but the expected 'Voting Complete' status did not appear — the session may not have ended or advanced as expected.")
         await asyncio.sleep(5)
 
     finally:

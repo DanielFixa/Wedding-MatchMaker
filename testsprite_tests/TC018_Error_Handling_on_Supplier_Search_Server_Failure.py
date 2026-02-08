@@ -48,68 +48,58 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000", wait_until="commit", timeout=10000)
         
-        # -> Click the 'Register' link to open the registration page/form.
+        # -> Click the 'Get Started' button to open the search or onboarding flow so the search page can be reached.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=html/body/div[2]/main/div/a[2]').nth(0)
+        elem = frame.locator('xpath=html/body/div[2]/main/div/a[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Click the Register button/link on the homepage again to open the registration page/form (use element index 55).
+        # -> Open the search/onboarding flow by clicking the 'Get Started' button again so the search page is reachable.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=html/body/div[2]/main/div/a[2]').nth(0)
+        elem = frame.locator('xpath=html/body/div[2]/main/div/a[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Fill the registration form (full names, email, password) and submit by clicking Create Account.
+        # -> Sign in using provided credentials (you@teste.com / Danielfixa@2) to reach the application search page so the simulated API error and supplier search can be executed.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('You Tester & Partner')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
         await page.wait_for_timeout(3000); await elem.fill('you@teste.com')
         
         frame = context.pages[-1]
         # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[3]/input').nth(0)
+        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
         await page.wait_for_timeout(3000); await elem.fill('Danielfixa@2')
         
-        # -> Click the 'Create Account' button to submit the registration form and observe the resulting page/state (use element index 342).
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Attempt registration with the alternate test credential (you@teste1.com). Fill full name, email, password with User B values and submit Create Account, then observe result.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('You Tester & Partner B')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[3]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('you@teste1.com')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[4]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('Danielfixa@2')
-        
-        # -> Click the 'Create Account' button to submit registration for you@teste1.com and observe the resulting page/state (use element index 342).
+        # -> Open the 'Find Suppliers' search page by clicking the 'Find Suppliers' button so the supplier search and API error simulation can be performed.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
+        elem = frame.locator('xpath=html/body/div[2]/main/div[1]/form/div[2]/button').nth(0)
+        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
+        
+        # -> Open the Find Suppliers search page by clicking the 'Find Suppliers' button so the search UI is reached and the API error simulation can be performed.
+        frame = context.pages[-1]
+        # Click element
+        elem = frame.locator('xpath=html/body/div[2]/main/div[1]/form/div[2]/button').nth(0)
+        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
+        
+        # -> Perform a supplier search by clicking the 'Search' button to observe normal behavior and check for error handling UI.
+        frame = context.pages[-1]
+        # Click element
+        elem = frame.locator('xpath=html/body/div[2]/div/div/form/button').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
         # --> Assertions to verify final state
         frame = context.pages[-1]
         try:
-            await expect(frame.locator('text=Registration Successful').first).to_be_visible(timeout=3000)
+            await expect(frame.locator('text=Unable to fetch suppliers. Please try again.').first).to_be_visible(timeout=3000)
         except AssertionError:
-            raise AssertionError("Test case failed: The test attempted to verify that a new user (you@teste.com) could register successfully and receive a persistent authenticated session — the expected 'Registration Successful' message or authenticated state did not appear")
+            raise AssertionError("Test case failed: The test simulated a search API/server error and expected a user-friendly error message 'Unable to fetch suppliers. Please try again.' (and an option to retry). That message did not appear, so the search page did not handle the API/server error gracefully")
         await asyncio.sleep(5)
 
     finally:

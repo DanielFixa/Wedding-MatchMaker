@@ -3,15 +3,17 @@
   "type": "frontend",
   "scope": "codebase",
   "localEndpoint": "http://localhost:3000",
+  "loginUser": "you@teste.com",
+  "loginPassword": "dANIELFIXA@2",
   "executionArgs": {
     "projectName": "Wedding-MatchMaker",
     "projectPath": "c:\\Users\\dgarc\\Documents\\Antrigravity\\Wedding-MatchMaker",
     "testIds": [],
-    "additionalInstruction": "The app is a Next.js application running on http://localhost:3000. Please test the core flows including login, registration, and room interaction if possible.",
+    "additionalInstruction": "",
     "envs": {
-      "API_KEY": "sk-user-BtK-SjEm_AO2pakC67QAQdnkS7U1JNe2nLbaTl8eYjXf_DyjU3yl09AfEDIQXL8uOvKgLa64dgJOx2Oddp8KWT9HXvEUVWC8aGiDbKzGyBwLNvvDaad1cmBFaqLvr8kdlOU"
+      "API_KEY": "sk-user-e9wliMyCdaNOnLTPWrzqwe2GGbVvoZ7w5VigRGIez_SpcqHIS739UnWPTzNxmo2ctbezMVBaAWFo352T4LlOfnm-yZY_-_Tp27dgFlbChlAg7TyueoqkYcgbzk2qwxmZkjA"
     }
   },
-  "serverPort": 14817,
-  "proxy": "http://b94c0dee-c9e3-4b69-a1c0-ca8102d596bc:ca7IqUGAJEC4q4fwWyJPb2MXD2ETcp4R@tun.testsprite.com:8080"
+  "serverPort": 1592,
+  "proxy": "http://ae327777-1e42-4d10-a632-774141117c36:n9ZXcSUzsmtOJLlzMtMBOLa7E6M47wfR@tun.testsprite.com:8080"
 }

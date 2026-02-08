@@ -166,3 +166,19 @@ export async function joinRoom(prevState: unknown, formData: FormData) {
         return { error: 'Error joining room.' }
     }
 }
+
+export async function getUserRooms() {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (!user) return []
+
+    const { data: rooms } = await supabase
+        .from('rooms')
+        .select('*')
+        .or(`host_id.eq.${user.id},guest_id.eq.${user.id}`)
+        .order('created_at', { ascending: false })
+
+    return rooms || []
+}
+

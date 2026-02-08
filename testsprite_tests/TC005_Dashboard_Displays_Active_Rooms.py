@@ -48,19 +48,19 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000", wait_until="commit", timeout=10000)
         
-        # -> Click the 'Get Started' link to navigate to the login page.
+        # -> Click the 'Get Started' button (index 47) to go to the login page.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/main/div/a[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Click the 'Get Started' link on the landing page to navigate to the login page (use element index 47).
+        # -> Click 'Get Started' (index 47) to open the login page so the login can be performed.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/main/div/a[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Fill the email and password fields and submit the login form (use input indices 377 and 380, then click index 381).
+        # -> Fill email and password fields with provided credentials and click the Sign In button to submit the login form.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
@@ -76,69 +76,45 @@ async def run_test():
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Open the registration page by clicking 'Create an account' so the test can register the user (click element index 383).
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
-        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
-        
-        # -> Click the 'Create an account' link (index 383) to open the registration page so the test can register the user.
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
-        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
-        
-        # -> Fill the registration form with full name, email (you@teste.com) and password (dANIELFIXA@2) and submit by clicking 'Create Account'.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('You & Test')
-        
+        # -> Attempt login using fallback test credentials (example@gmail.com / password123), submit the form, then wait for navigation to the dashboard and inspect rooms list.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('you@teste.com')
+        await page.wait_for_timeout(3000); await elem.fill('example@gmail.com')
         
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[3]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('dANIELFIXA@2')
+        await page.wait_for_timeout(3000); await elem.fill('password123')
         
-        # -> Click the 'Create Account' button to submit the registration form (use element index 826).
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Wait for registration to finish. If registration page stays, click 'Sign in' to go to login, then submit saved credentials to sign in and confirm dashboard.
+        # -> Click the 'Create an account' link to attempt account registration (alternative path since login failed).
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Click the 'Sign in' link on the registration page to navigate to the login page (element index 832).
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
-        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
-        
-        # -> Fill the visible email and password fields (indices 1361 and 1366) with the registered credentials and click the Sign In button (index 1369) to attempt login.
+        # -> Fill the registration form (Full Names, Email, Password) and click 'Create Account' to register a new user and trigger post-registration navigation to the dashboard.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('you@teste.com')
+        await page.wait_for_timeout(3000); await elem.fill('Test Couple')
         
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('dANIELFIXA@2')
+        await page.wait_for_timeout(3000); await elem.fill('autotest+001@example.com')
         
         frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
-        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
+        # Input text
+        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[3]/input').nth(0)
+        await page.wait_for_timeout(3000); await elem.fill('password123')
         
-        # -> Attempt login again by clicking the visible 'Sign In' button (index 1369), wait for the response, then extract/return visible indicators (URL if available, visible texts including 'Dashboard','Welcome','Logout' or errors like 'Invalid login credentials'/'User already registered', and whether 'Signing In...' remains).
+        # -> Click the 'Create Account' button (index 1026) to submit registration. After submission, wait for navigation to the dashboard and then inspect the rooms list to verify each active room shows name, category, and status.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
@@ -147,9 +123,9 @@ async def run_test():
         # --> Assertions to verify final state
         frame = context.pages[-1]
         try:
-            await expect(frame.locator('text=Dashboard').first).to_be_visible(timeout=3000)
+            await expect(frame.locator('text=Active Rooms').first).to_be_visible(timeout=3000)
         except AssertionError:
-            raise AssertionError("Test case failed: Expected the registered user to be redirected to the dashboard and see 'Dashboard' (verifying successful login and persisted session after reload), but the dashboard text was not visible")
+            raise AssertionError("Test case failed: Expected the dashboard to display the list of active rooms after login (each room showing name, category, and status), but the 'Active Rooms' list did not appear or was not visible")
         await asyncio.sleep(5)
 
     finally:

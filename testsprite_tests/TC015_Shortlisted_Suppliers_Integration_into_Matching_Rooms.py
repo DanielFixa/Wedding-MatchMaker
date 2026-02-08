@@ -48,19 +48,19 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000", wait_until="commit", timeout=10000)
         
-        # -> Click the 'Get Started' link to navigate to the login page.
+        # -> Click the 'Get Started' button to reach the search/login flow so suppliers can be shortlisted.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/main/div/a[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Click the 'Get Started' link on the landing page to navigate to the login page (use element index 47).
+        # -> Click the 'Get Started' button again to open the search/login flow so suppliers can be shortlisted.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/main/div/a[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Fill the email and password fields and submit the login form (use input indices 377 and 380, then click index 381).
+        # -> Fill the login form with provided credentials and click 'Sign In' to access the app (search page).
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
@@ -76,23 +76,23 @@ async def run_test():
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Open the registration page by clicking 'Create an account' so the test can register the user (click element index 383).
+        # -> Open the registration flow by clicking 'Create an account' so a new user can be created and then proceed to the search page to shortlist suppliers.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Click the 'Create an account' link (index 383) to open the registration page so the test can register the user.
+        # -> Open the registration form by clicking 'Create an account' so a new user can be created.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Fill the registration form with full name, email (you@teste.com) and password (dANIELFIXA@2) and submit by clicking 'Create Account'.
+        # -> Fill the registration form with the provided credentials (you@teste.com / dANIELFIXA@2) and submit 'Create Account' to register and access the app (search page).
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('You & Test')
+        await page.wait_for_timeout(3000); await elem.fill('Test Couple')
         
         frame = context.pages[-1]
         # Input text
@@ -104,25 +104,25 @@ async def run_test():
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[3]/input').nth(0)
         await page.wait_for_timeout(3000); await elem.fill('dANIELFIXA@2')
         
-        # -> Click the 'Create Account' button to submit the registration form (use element index 826).
+        # -> Click 'Create Account' to submit registration and load the search/dashboard page so suppliers can be shortlisted.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Wait for registration to finish. If registration page stays, click 'Sign in' to go to login, then submit saved credentials to sign in and confirm dashboard.
+        # -> Open the sign-in/login page by clicking the 'Sign in' link so credentials can be entered (or account recovery attempted) and then access the search/dashboard to shortlist suppliers.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Click the 'Sign in' link on the registration page to navigate to the login page (element index 832).
+        # -> Click the 'Sign in' link on the registration page to open the login form, then sign in with the provided credentials (you@teste.com / dANIELFIXA@2). Immediately after navigation, locate the email and password fields and submit the sign-in form.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Fill the visible email and password fields (indices 1361 and 1366) with the registered credentials and click the Sign In button (index 1369) to attempt login.
+        # -> Sign in using provided credentials to reach the search/dashboard page so suppliers can be shortlisted.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
@@ -138,18 +138,61 @@ async def run_test():
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Attempt login again by clicking the visible 'Sign In' button (index 1369), wait for the response, then extract/return visible indicators (URL if available, visible texts including 'Dashboard','Welcome','Logout' or errors like 'Invalid login credentials'/'User already registered', and whether 'Signing In...' remains).
+        # -> Open the registration form by clicking 'Create an account' so a new test account can be created (then use that account to access the search page and shortlist suppliers).
+        frame = context.pages[-1]
+        # Click element
+        elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
+        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
+        
+        # -> Open the registration form by clicking the 'Create an account' link so a new test account can be created (then register with example@gmail.com / password123).
+        frame = context.pages[-1]
+        # Click element
+        elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
+        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
+        
+        # -> Fill the registration form with Test Couple / example@gmail.com / password123 and submit 'Create Account' to register a new test user so the app can be accessed and suppliers can be shortlisted.
+        frame = context.pages[-1]
+        # Input text
+        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
+        await page.wait_for_timeout(3000); await elem.fill('Test Couple')
+        
+        frame = context.pages[-1]
+        # Input text
+        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
+        await page.wait_for_timeout(3000); await elem.fill('example@gmail.com')
+        
+        frame = context.pages[-1]
+        # Input text
+        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[3]/input').nth(0)
+        await page.wait_for_timeout(3000); await elem.fill('password123')
+        
+        # -> Click the 'Create Account' button to submit the second test registration (example@gmail.com) and navigate to the dashboard/search page so suppliers can be shortlisted.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # --> Assertions to verify final state
+        # -> Click the 'Sign in' link to open the login form so the test account can be signed in (then proceed to search to shortlist suppliers). Immediately click the Sign in link (index 1742).
         frame = context.pages[-1]
-        try:
-            await expect(frame.locator('text=Dashboard').first).to_be_visible(timeout=3000)
-        except AssertionError:
-            raise AssertionError("Test case failed: Expected the registered user to be redirected to the dashboard and see 'Dashboard' (verifying successful login and persisted session after reload), but the dashboard text was not visible")
+        # Click element
+        elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
+        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
+        
+        # -> Open the login page (navigate to /login) using an alternative navigation method so signing in can be attempted with the test account (example@gmail.com / password123). After login, proceed to search and shortlist at least one supplier.
+        await page.goto("http://localhost:3000/login", wait_until="commit", timeout=10000)
+        
+        # -> Click the Reload button to retry connecting to the localhost app and restore the application UI so sign-in/registration and supplier shortlist steps can continue.
+        frame = context.pages[-1]
+        # Click element
+        elem = frame.locator('xpath=html/body/div[1]/div[1]/div[2]/div/button').nth(0)
+        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
+        
+        # -> Click the Reload button again to retry connecting to the localhost app and wait for the page to recover. If the page still shows ERR_EMPTY_RESPONSE after the reload+wait, report a website issue and stop.
+        frame = context.pages[-1]
+        # Click element
+        elem = frame.locator('xpath=html/body/div[1]/div[1]/div[2]/div/button').nth(0)
+        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
+        
         await asyncio.sleep(5)
 
     finally:

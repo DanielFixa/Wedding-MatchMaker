@@ -12,6 +12,39 @@ type Supplier = Database['public']['Tables']['suppliers']['Row'];
 // Fallback image if unsplash url fails or is missing
 const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070';
 
+const fixImageUrl = (url: string | null) => {
+    if (!url) return FALLBACK_IMAGE;
+
+    let fixed = url.trim();
+
+    // Check for "httpsimages..." pattern
+    if (fixed.startsWith('httpsimages.unsplash.com')) {
+        fixed = fixed.replace('httpsimages.unsplash.com', 'https://images.unsplash.com');
+        // If the resulting URL looks like https://images.unsplash.comphoto-..., insert the slash
+        if (fixed.startsWith('https://images.unsplash.com') && !fixed.startsWith('https://images.unsplash.com/')) {
+            fixed = fixed.replace('https://images.unsplash.com', 'https://images.unsplash.com/');
+        }
+    }
+
+    // Check for "http:/images..." or any missing slashes after protocol
+    if (!fixed.match(/^https?:\/\//)) {
+        // Try to fix protocol
+        if (fixed.includes('images.unsplash.com')) {
+            // If it starts with http or https but malformed slash structure
+            // This regex handles "https:images", "https:/images", "httpsimages" if not caught above
+            fixed = fixed.replace(/^(https?):?\/?\/?/, '$1://');
+        }
+    }
+
+    // If no protocol at all but has domain
+    if (!fixed.startsWith('http')) {
+        fixed = `https://${fixed}`;
+    }
+
+
+    return fixed;
+};
+
 export default function SearchPage() {
     const router = useRouter();
     const [suppliers, setSuppliers] = useState<Supplier[]>([]);
@@ -145,7 +178,7 @@ export default function SearchPage() {
                             <div key={supplier.id} className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
                                 <div className="aspect-video relative overflow-hidden bg-gray-200">
                                     <Image
-                                        src={supplier.image_url || FALLBACK_IMAGE}
+                                        src={fixImageUrl(supplier.image_url)}
                                         alt={supplier.name}
                                         fill
                                         className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -166,7 +199,14 @@ export default function SearchPage() {
                                         <MapPin className="h-3 w-3 mr-1" />
                                         {supplier.location}
                                     </div>
-                                    <button className="hidden w-full mt-4 py-2 border border-gold text-gold rounded-lg hover:bg-gold hover:text-white transition-colors text-sm font-semibold">
+                                    <button
+                                        className="w-full mt-4 py-2 border border-gold text-gold rounded-lg hover:bg-gold hover:text-white transition-colors text-sm font-semibold block"
+                                        onClick={() => {
+                                            // Placeholder for shortlist logic
+                                            console.log(`Shortlisted ${supplier.name}`);
+                                            alert(`Shortlisted ${supplier.name}`);
+                                        }}
+                                    >
                                         Shortlist
                                     </button>
                                 </div>

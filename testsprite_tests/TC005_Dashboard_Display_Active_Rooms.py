@@ -54,22 +54,22 @@ async def run_test():
         elem = frame.locator('xpath=html/body/div[2]/main/div/a[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Click the 'Reload' button (element [74]) to retry loading the login page.
+        # -> Attempt to open the login page by clicking the 'Get Started' button on the landing page again.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=html/body/div[1]/div[1]/div[2]/div/button').nth(0)
+        elem = frame.locator('xpath=html/body/div[2]/main/div/a[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Fill the email and password fields with test credentials and click 'Sign In' to log in (use input indexes 50 and 54, click index 55).
+        # -> Fill email and password fields and click 'Sign In' to log in.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('example@gmail.com')
+        await page.wait_for_timeout(3000); await elem.fill('you@teste.com')
         
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('password123')
+        await page.wait_for_timeout(3000); await elem.fill('Danielfixa@2')
         
         frame = context.pages[-1]
         # Click element
@@ -78,10 +78,12 @@ async def run_test():
         
         # --> Assertions to verify final state
         frame = context.pages[-1]
+        ```
         try:
             await expect(frame.locator('text=Active Rooms').first).to_be_visible(timeout=3000)
         except AssertionError:
-            raise AssertionError("Test case failed: Expected the dashboard to display the user's active rooms (header 'Active Rooms') and list the room entries with their titles and categories after logging in, but that section did not appear or the room entries are missing")
+            raise AssertionError("Test case failed: Expected the Dashboard to display the 'Active Rooms' list with each room's category and status and options to create or join rooms, but the 'Active Rooms' header or rooms list did not appear — the dashboard may not have loaded or the rooms are not visible for the logged-in user.")
+        ```
         await asyncio.sleep(5)
 
     finally:

@@ -1,5 +1,6 @@
 import asyncio
 from playwright import async_api
+from playwright.async_api import expect
 
 async def run_test():
     pw = None
@@ -45,71 +46,51 @@ async def run_test():
                 pass
 
         # Interact with the page elements to simulate user flow
-        # -> Navigate to http://localhost:3000
-        await page.goto("http://localhost:3000", wait_until="commit", timeout=10000)
-        
-        # -> Click the 'Register' link to open the registration page/form.
+ 
+        # -> Click on 'Get Started' to proceed to login or main app page.
         frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=html/body/div[2]/main/div/a[2]').nth(0)
+        elem = frame.locator('xpath=html/body/div[2]/main/div/a').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Click the Register button/link on the homepage again to open the registration page/form (use element index 55).
+
+        # -> Input email and password, then click Sign In.
         frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=html/body/div[2]/main/div/a[2]').nth(0)
+        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div/input').nth(0)
+        await page.wait_for_timeout(3000); await elem.fill('you@teste.com')
+        
+
+        frame = context.pages[-1]
+        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
+        await page.wait_for_timeout(3000); await elem.fill('dANIELFIXA@2')
+        
+
+        frame = context.pages[-1]
+        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Fill the registration form (full names, email, password) and submit by clicking Create Account.
+
+        # -> Input correct email and password from user info and attempt login again.
         frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('You Tester & Partner')
-        
-        frame = context.pages[-1]
-        # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
         await page.wait_for_timeout(3000); await elem.fill('you@teste.com')
         
+
         frame = context.pages[-1]
-        # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[3]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('Danielfixa@2')
+        await page.wait_for_timeout(3000); await elem.fill('dANIELFIXA@2')
         
-        # -> Click the 'Create Account' button to submit the registration form and observe the resulting page/state (use element index 342).
+
         frame = context.pages[-1]
-        # Click element
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Attempt registration with the alternate test credential (you@teste1.com). Fill full name, email, password with User B values and submit Create Account, then observe result.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('You Tester & Partner B')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[3]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('you@teste1.com')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[4]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('Danielfixa@2')
-        
-        # -> Click the 'Create Account' button to submit registration for you@teste1.com and observe the resulting page/state (use element index 342).
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
-        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
-        
+
         # --> Assertions to verify final state
         frame = context.pages[-1]
         try:
-            await expect(frame.locator('text=Registration Successful').first).to_be_visible(timeout=3000)
+            await expect(frame.locator('text=Authentication State Persisted Successfully')).to_be_visible(timeout=1000)
         except AssertionError:
-            raise AssertionError("Test case failed: The test attempted to verify that a new user (you@teste.com) could register successfully and receive a persistent authenticated session — the expected 'Registration Successful' message or authenticated state did not appear")
+            raise AssertionError("Test failed: Authentication state did not persist after closing and reopening the browser or tab as required by the test plan.")
         await asyncio.sleep(5)
 
     finally:

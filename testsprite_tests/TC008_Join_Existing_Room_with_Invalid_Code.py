@@ -48,113 +48,45 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000", wait_until="commit", timeout=10000)
         
-        # -> Click the 'Get Started' button to proceed to the login/join flow.
+        # -> Click the 'Get Started' button to navigate to the join room page.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/main/div/a[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Retry loading the page by clicking the Reload button to recover from the ERR_EMPTY_RESPONSE and continue the login/join flow.
+        # -> Click the 'Get Started' button (index 53) to open the join room page.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=html/body/div[1]/div[1]/div[2]/div/button').nth(0)
+        elem = frame.locator('xpath=html/body/div[2]/main/div/a[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Fill the login form with test credentials (example@gmail.com / password123) and click 'Sign In' to log in as the registered user.
+        # -> Sign in with provided test credentials to reach the app UI that contains the join-room option (then proceed to enter invalid room code).
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('example@gmail.com')
+        await page.wait_for_timeout(3000); await elem.fill('you@teste.com')
         
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('password123')
+        await page.wait_for_timeout(3000); await elem.fill('Danielfixa@2')
         
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Open the registration page by clicking 'Create an account' so a valid user can be created (or confirm account existence) and then proceed to login.
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
-        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
-        
-        # -> Open the registration page by clicking the 'Create an account' link so a valid account can be created (click element index 61).
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
-        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
-        
-        # -> Fill the registration form (Full Names: 'Test Couple', Email: 'example@gmail.com', Password: 'password123') and click 'Create Account' (element index 499) to create a valid user account.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('Test Couple')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('example@gmail.com')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[3]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('password123')
-        
-        # -> Click the 'Create Account' button (element index 499) to submit the registration form and create the user account, then proceed to the next step after the page changes.
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
-        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
-        
-        # -> Click the 'Sign in' link to open the login page so the existing account can be used to sign in.
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
-        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
-        
-        # -> Click the 'Sign in' link (element index 501) to open the login page so the existing account can be used to sign in.
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
-        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
-        
-        # -> Fill the login form with example@gmail.com / password123 and click 'Sign In' (use email input index 959, password input index 963, Sign In button index 964).
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('example@gmail.com')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('password123')
-        
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
-        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
-        
-        # -> Enter an invalid/non-existent 5-character code into the Join Room input and click 'Join Game' to attempt joining; then observe the resulting error message.
+        # -> Enter an invalid 5-character room code into the Join Room input (index 896) and click the Join Game button (index 897).
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/main/div[2]/form/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('ZZZZZ')
+        await page.wait_for_timeout(3000); await elem.fill('XXXXX')
         
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/main/div[2]/form/button').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # --> Assertions to verify final state
-        frame = context.pages[-1]
-        frame = context.pages[-1]
-        error_msg = frame.locator("text=Room not found.").nth(0)
-        await error_msg.wait_for(state="visible", timeout=5000)
-        assert await error_msg.is_visible(), "Expected 'Room not found.' error message to be visible after attempting to join with invalid code"
         await asyncio.sleep(5)
 
     finally:

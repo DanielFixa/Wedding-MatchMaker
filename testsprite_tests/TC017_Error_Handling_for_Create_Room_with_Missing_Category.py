@@ -48,19 +48,19 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000", wait_until="commit", timeout=10000)
         
-        # -> Click the 'Get Started' link to navigate to the login page.
+        # -> Click the 'Get Started' button to proceed toward dashboard or login/registration flow where room creation is available.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/main/div/a[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Click the 'Get Started' link on the landing page to navigate to the login page (use element index 47).
+        # -> Click the 'Get Started' button to navigate from the landing page toward the dashboard or login/register flow (index 47).
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/main/div/a[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Fill the email and password fields and submit the login form (use input indices 377 and 380, then click index 381).
+        # -> Fill the email and password fields and click 'Sign In' to log in and reach the dashboard.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
@@ -76,23 +76,29 @@ async def run_test():
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Open the registration page by clicking 'Create an account' so the test can register the user (click element index 383).
+        # -> Retry signing in by clicking the 'Sign In' button again to reach the dashboard so the create-room flow can be tested.
+        frame = context.pages[-1]
+        # Click element
+        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
+        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
+        
+        # -> Click the 'Create an account' link to register (or reach the registration flow) so an account can be created and the dashboard reached to test the create-room flow.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Click the 'Create an account' link (index 383) to open the registration page so the test can register the user.
+        # -> Click the 'Create an account' link to open the registration flow so an account can be created (or reach registration) and proceed toward the dashboard/create-room page.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Fill the registration form with full name, email (you@teste.com) and password (dANIELFIXA@2) and submit by clicking 'Create Account'.
+        # -> Fill the registration form with the provided credentials and submit to create an account so the dashboard and create-room flow can be reached.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('You & Test')
+        await page.wait_for_timeout(3000); await elem.fill('Test Couple')
         
         frame = context.pages[-1]
         # Input text
@@ -104,52 +110,36 @@ async def run_test():
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[3]/input').nth(0)
         await page.wait_for_timeout(3000); await elem.fill('dANIELFIXA@2')
         
-        # -> Click the 'Create Account' button to submit the registration form (use element index 826).
+        # -> Click the 'Create Account' button (index 968) to submit registration and reach the dashboard so the create-room flow can be tested.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Wait for registration to finish. If registration page stays, click 'Sign in' to go to login, then submit saved credentials to sign in and confirm dashboard.
+        # -> Click the 'Sign in' link to open the login form so a valid session can be attempted and the dashboard reached (element index 974).
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Click the 'Sign in' link on the registration page to navigate to the login page (element index 832).
+        # -> Reach the create-room page (use direct navigation to dashboard/create-room as last-resort) so the room creation form can be opened and tested.
+        await page.goto("http://localhost:3000/dashboard", wait_until="commit", timeout=10000)
+        
+        # -> Open the Create Room flow so the creation form is shown (click the Create Room panel) and then attempt to submit without selecting any wedding category.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/div[2]/a').nth(0)
+        elem = frame.locator('xpath=html/body/div[2]/main/div[1]/div[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Fill the visible email and password fields (indices 1361 and 1366) with the registered credentials and click the Sign In button (index 1369) to attempt login.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('you@teste.com')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('dANIELFIXA@2')
-        
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
-        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
-        
-        # -> Attempt login again by clicking the visible 'Sign In' button (index 1369), wait for the response, then extract/return visible indicators (URL if available, visible texts including 'Dashboard','Welcome','Logout' or errors like 'Invalid login credentials'/'User already registered', and whether 'Signing In...' remains).
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
-        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
+        # -> Return to the dashboard/create-room page so the Create Room form can be opened and then attempt submitting the form without selecting a wedding category.
+        await page.goto("http://localhost:3000/dashboard", wait_until="commit", timeout=10000)
         
         # --> Assertions to verify final state
         frame = context.pages[-1]
         try:
-            await expect(frame.locator('text=Dashboard').first).to_be_visible(timeout=3000)
+            await expect(frame.locator('text=Please select a wedding category').first).to_be_visible(timeout=3000)
         except AssertionError:
-            raise AssertionError("Test case failed: Expected the registered user to be redirected to the dashboard and see 'Dashboard' (verifying successful login and persisted session after reload), but the dashboard text was not visible")
+            raise AssertionError("Test case failed: Attempted to create a room without selecting a wedding category, but the expected validation message 'Please select a wedding category' did not appear — the form may not be properly preventing submission or showing the required error.")
         await asyncio.sleep(5)
 
     finally:

@@ -1,48 +1,82 @@
 {
     "tech_stack": [
         "TypeScript",
-        "Next.js",
-        "Supabase",
-        "Tailwind CSS",
-        "Framer Motion"
+        "Next.js 16",
+        "React 19",
+        "Tailwind CSS v4",
+        "Supabase (Auth, Realtime, PostgreSQL)",
+        "Framer Motion",
+        "Unsplash API"
     ],
     "features": [
         {
-            "name": "Authentication",
-            "description": "User login and registration functionality using Supabase Auth.",
+            "name": "User Authentication",
+            "description": "User registration and login with Supabase Auth, session persistence across browser refreshes.",
             "files": [
+                "src/app/auth/actions.ts",
                 "src/app/login/page.tsx",
-                "src/app/register/page.tsx"
+                "src/app/register/page.tsx",
+                "src/lib/supabase/server.ts",
+                "src/lib/supabase/client.ts",
+                "src/middleware.ts"
             ]
         },
         {
             "name": "Dashboard",
-            "description": "User dashboard showing active rooms and navigations.",
+            "description": "Main dashboard showing create room, join room options, and user's active rooms list.",
             "files": [
-                "src/app/dashboard/page.tsx"
+                "src/app/dashboard/page.tsx",
+                "src/app/dashboard/actions.ts"
             ]
         },
         {
-            "name": "Room Management",
-            "description": "Creation and interaction with voting rooms.",
+            "name": "Room Creation & Joining",
+            "description": "Create decision-making rooms with categories, generate room codes, and allow partners to join via code.",
             "files": [
-                "src/app/room/page.tsx",
-                "src/actions/game.ts"
+                "src/app/dashboard/page.tsx",
+                "src/app/dashboard/actions.ts",
+                "src/app/room/[id]/lobby/page.tsx"
             ]
         },
         {
-            "name": "Gallery",
-            "description": "Image gallery and asset management for voting items.",
+            "name": "Room Lobby & Real-time Sync",
+            "description": "Lobby waiting state for partners, real-time updates via Supabase Realtime when partner joins.",
             "files": [
-                "src/app/gallery/page.tsx",
-                "src/actions/gallery.ts"
+                "src/app/room/[id]/lobby/page.tsx",
+                "src/app/room/[id]/lobby/LobbyClient.tsx"
             ]
         },
         {
-            "name": "Search",
-            "description": "Search functionality for rooms and content.",
+            "name": "Swipe-Based Decision Making",
+            "description": "Tinder-style swiping interface for wedding elements, real-time vote synchronization between partners.",
             "files": [
-                "src/app/search/page.tsx"
+                "src/app/room/[id]/play/page.tsx",
+                "src/app/room/[id]/play/RoomClient.tsx",
+                "src/components/SwipeCard.tsx"
+            ]
+        },
+        {
+            "name": "Supplier Search",
+            "description": "Search and filter wedding suppliers by category, location, and price range with dynamic results.",
+            "files": [
+                "src/app/search/page.tsx",
+                "src/app/search/actions.ts"
+            ]
+        },
+        {
+            "name": "Image URL Handling",
+            "description": "Robust URL parsing and fixing for Unsplash images to handle malformed URLs.",
+            "files": [
+                "src/app/search/page.tsx",
+                "src/lib/unsplash.ts"
+            ]
+        },
+        {
+            "name": "Gallery/Results",
+            "description": "Display matched wedding elements and decision history.",
+            "files": [
+                "src/app/room/[id]/results/page.tsx",
+                "src/app/gallery/page.tsx"
             ]
         }
     ]

@@ -48,28 +48,28 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000", wait_until="commit", timeout=10000)
         
-        # -> Click the 'Get Started' button to open the login page.
+        # -> Click the 'Get Started' button (element index 47) to navigate to the login page.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/main/div/a[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Attempt to reload the /login page by clicking the Reload button to recover from ERR_EMPTY_RESPONSE and load the login form.
+        # -> Click the 'Get Started' button again (element index 47) to attempt to reach the login page.
         frame = context.pages[-1]
         # Click element
-        elem = frame.locator('xpath=html/body/div[1]/div[1]/div[2]/div/button').nth(0)
+        elem = frame.locator('xpath=html/body/div[2]/main/div/a[1]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Enter a valid email and an incorrect password into inputs (index 50 and 54) and click the Sign In button (index 55) to trigger the error message.
+        # -> Fill the email and password fields and submit the Sign In form to verify the system rejects the login and shows an error message.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('example@gmail.com')
+        await page.wait_for_timeout(3000); await elem.fill('you@teste.com')
         
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('wrongpassword')
+        await page.wait_for_timeout(3000); await elem.fill('dANIELFIXA@2')
         
         frame = context.pages[-1]
         # Click element
@@ -78,12 +78,11 @@ async def run_test():
         
         # --> Assertions to verify final state
         frame = context.pages[-1]
+        # -> Assert that an error message is shown for invalid credentials
         frame = context.pages[-1]
-        # Wait for the error message about incorrect credentials to appear
-        error_locator = frame.locator("text=Invalid login credentials")
-        await error_locator.wait_for(state="visible", timeout=5000)
-        error_text = await error_locator.inner_text()
-        assert "Invalid login credentials" in error_text, f"Expected error message not shown, got: {error_text}"
+        err_locator = frame.locator("text=Invalid login credentials").nth(0)
+        await err_locator.wait_for(state="visible", timeout=5000)
+        assert await err_locator.is_visible(), "Expected error message 'Invalid login credentials' to be visible after failed login"
         await asyncio.sleep(5)
 
     finally:

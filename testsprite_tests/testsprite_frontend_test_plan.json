@@ -1,8 +1,8 @@
 [
   {
     "id": "TC001",
-    "title": "User Registration Success",
-    "description": "Verify that a new user can successfully register with valid email and password credentials and authentication state persists.",
+    "title": "Successful User Registration",
+    "description": "Verify that a new user can register with valid email and password and the authentication state is persisted.",
     "category": "functional",
     "priority": "High",
     "steps": [
@@ -12,7 +12,11 @@
       },
       {
         "type": "action",
-        "description": "Input a valid email address and valid password"
+        "description": "Enter a valid and unique email address"
+      },
+      {
+        "type": "action",
+        "description": "Enter a valid password meeting all password requirements"
       },
       {
         "type": "action",
@@ -20,18 +24,18 @@
       },
       {
         "type": "assertion",
-        "description": "Confirm registration success message is displayed"
+        "description": "Check registration is successful and user is authenticated"
       },
       {
         "type": "assertion",
-        "description": "Confirm user is logged in and authentication state persists across page reload"
+        "description": "Reload the application and verify the user remains authenticated"
       }
     ]
   },
   {
     "id": "TC002",
-    "title": "User Registration Failure with Invalid Email",
-    "description": "Verify registration fails when user inputs an invalid email format and appropriate error message is shown.",
+    "title": "User Registration with Invalid Email",
+    "description": "Ensure the registration fails when the user inputs an invalid email format.",
     "category": "error handling",
     "priority": "High",
     "steps": [
@@ -41,7 +45,11 @@
       },
       {
         "type": "action",
-        "description": "Input an invalid email address and a valid password"
+        "description": "Enter an invalid email format (e.g., 'user@@domain')"
+      },
+      {
+        "type": "action",
+        "description": "Enter a valid password"
       },
       {
         "type": "action",
@@ -49,14 +57,14 @@
       },
       {
         "type": "assertion",
-        "description": "Confirm error message about invalid email format is displayed"
+        "description": "Verify registration is rejected with an appropriate error message about invalid email"
       }
     ]
   },
   {
     "id": "TC003",
     "title": "User Login Success",
-    "description": "Verify login is successful using valid email and password and authentication state persists.",
+    "description": "Verify that a registered user can login successfully with correct credentials and session persists.",
     "category": "functional",
     "priority": "High",
     "steps": [
@@ -70,22 +78,26 @@
       },
       {
         "type": "action",
-        "description": "Click the login button"
+        "description": "Submit the login form"
       },
       {
         "type": "assertion",
-        "description": "Confirm user is successfully logged in and redirected to dashboard"
+        "description": "Confirm login is successful and user is taken to dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Reload the application"
       },
       {
         "type": "assertion",
-        "description": "Confirm authentication state persists after page reload"
+        "description": "Verify authentication state is persisted and user stays logged in"
       }
     ]
   },
   {
     "id": "TC004",
     "title": "User Login Failure with Incorrect Password",
-    "description": "Verify login fails with incorrect password and correct error message is shown.",
+    "description": "Confirm the system rejects login attempts with a valid email but incorrect password.",
     "category": "error handling",
     "priority": "High",
     "steps": [
@@ -95,28 +107,28 @@
       },
       {
         "type": "action",
-        "description": "Enter valid email and incorrect password"
+        "description": "Enter a valid user email with incorrect password"
       },
       {
         "type": "action",
-        "description": "Click the login button"
+        "description": "Submit the login form"
       },
       {
         "type": "assertion",
-        "description": "Confirm error message about incorrect credentials is displayed"
+        "description": "Verify login is rejected and an error message is displayed"
       }
     ]
   },
   {
     "id": "TC005",
-    "title": "Dashboard Display Active Rooms",
-    "description": "Verify that the dashboard properly displays all active rooms associated with the logged-in user.",
+    "title": "Dashboard Displays Active Rooms",
+    "description": "Verify the dashboard displays a list of active rooms correctly after user login.",
     "category": "functional",
     "priority": "Medium",
     "steps": [
       {
         "type": "action",
-        "description": "Log in as a user with existing active rooms"
+        "description": "Login as a valid user with existing rooms"
       },
       {
         "type": "action",
@@ -124,69 +136,61 @@
       },
       {
         "type": "assertion",
-        "description": "Check all active rooms for the user are listed"
+        "description": "Check that all active rooms owned or joined by the user are displayed"
       },
       {
         "type": "assertion",
-        "description": "Confirm room titles and categories are correctly displayed"
+        "description": "Verify each room displays correct information (name, category, status)"
       }
     ]
   },
   {
     "id": "TC006",
-    "title": "Create New Room by Category",
-    "description": "Verify user can create a new matching room by selecting a wedding category and the room is available in dashboard and lobby.",
+    "title": "Create a New Matching Room",
+    "description": "Verify that a user can create a new matching room by selecting a wedding category successfully.",
     "category": "functional",
     "priority": "High",
     "steps": [
       {
         "type": "action",
-        "description": "Log in as registered user"
+        "description": "Login and navigate to the dashboard"
       },
       {
         "type": "action",
-        "description": "Navigate to dashboard page"
+        "description": "Click on 'Create New Room'"
       },
       {
         "type": "action",
-        "description": "Select option to create a new room"
+        "description": "Select a wedding category from the list"
       },
       {
         "type": "action",
-        "description": "Choose a wedding category from the available list"
-      },
-      {
-        "type": "action",
-        "description": "Confirm room creation"
+        "description": "Submit room creation"
       },
       {
         "type": "assertion",
-        "description": "Verify the new room is listed on the dashboard"
+        "description": "Verify that a new room is created and user is taken to the room lobby"
       },
       {
         "type": "assertion",
-        "description": "Verify user is directed to the room lobby and sees a waiting state"
+        "description": "Confirm that the room code is generated and displayed"
       }
     ]
   },
   {
     "id": "TC007",
-    "title": "Join Existing Room with Valid Code",
-    "description": "Verify that a user can join an existing room using a valid 5-character code and sees the lobby or current session appropriately.",
+    "title": "Join an Existing Room via 5-Character Code",
+    "description": "Verify that a user can join an existing room by entering a valid unique 5-character code.",
     "category": "functional",
     "priority": "High",
     "steps": [
       {
         "type": "action",
-        "description": "Log in as registered user"
+        "description": "Login and navigate to the dashboard"
       },
       {
         "type": "action",
-        "description": "Navigate to the dashboard page"
-      },
-      {
-        "type": "action",
-        "description": "Select option to join a room"
+        "description": "Click on 'Join Room'"
       },
       {
         "type": "action",
@@ -194,97 +198,118 @@
       },
       {
         "type": "action",
-        "description": "Confirm join action"
+        "description": "Submit the join request"
       },
       {
         "type": "assertion",
-        "description": "Verify user joins room and sees room lobby or session interface"
+        "description": "Confirm user is successfully added to the room and navigated to the room lobby"
       }
     ]
   },
   {
     "id": "TC008",
-    "title": "Join Existing Room with Invalid Code",
-    "description": "Verify that joining a room with invalid or non-existent 5-character code shows appropriate error message.",
+    "title": "Handle Joining Room with Invalid Code",
+    "description": "Verify that an error is shown when the user tries to join a room with an invalid or non-existing 5-character code.",
     "category": "error handling",
-    "priority": "Medium",
+    "priority": "High",
     "steps": [
       {
         "type": "action",
-        "description": "Log in as registered user"
+        "description": "Navigate to join room page"
       },
       {
         "type": "action",
-        "description": "Navigate to dashboard"
+        "description": "Enter an invalid or non-existent room code"
       },
       {
         "type": "action",
-        "description": "Select option to join a room"
-      },
-      {
-        "type": "action",
-        "description": "Enter an invalid or non-existent 5-character code"
-      },
-      {
-        "type": "action",
-        "description": "Attempt to join room"
+        "description": "Attempt to join the room"
       },
       {
         "type": "assertion",
-        "description": "Verify appropriate error message is displayed indicating room not found"
+        "description": "Verify that the system shows an appropriate error message and does not join the room"
       }
     ]
   },
   {
     "id": "TC009",
-    "title": "Room Lobby Waiting until Partner Joins",
-    "description": "Verify that when a user creates a room and waits in the lobby, appropriate waiting UI is shown until partner joins.",
+    "title": "Room Lobby Displays Waiting Status",
+    "description": "Verify that when a user creates a room and waits for their partner to join, the room lobby displays the waiting status appropriately.",
     "category": "functional",
     "priority": "Medium",
     "steps": [
       {
         "type": "action",
-        "description": "User A creates a new room and enters lobby"
+        "description": "Create a new room and navigate to the room lobby"
       },
       {
         "type": "assertion",
-        "description": "Verify UI shows waiting message or indicator for partner to join"
+        "description": "Check that the lobby shows a waiting message indicating the user is waiting for partner to join"
       }
     ]
   },
   {
     "id": "TC010",
-    "title": "Real-time Sync of Room Session Inputs",
-    "description": "Verify that swiping and matching decisions made by one user in the room are instantly synchronized and reflected on the partner's screen.",
+    "title": "Real-time Sync when Partner Joins Room Lobby",
+    "description": "Verify that when the partner joins a room, the room lobby updates in real-time showing both participants present and allowing session start.",
     "category": "functional",
     "priority": "High",
     "steps": [
       {
         "type": "action",
-        "description": "User A and User B join the same active room session"
+        "description": "User A creates a room and waits in lobby"
       },
       {
         "type": "action",
-        "description": "User A swipes right on a wedding item"
+        "description": "User B joins the same room via code"
       },
       {
         "type": "assertion",
-        "description": "Verify the swipe action is immediately reflected on User B's interface"
-      },
-      {
-        "type": "action",
-        "description": "User B swipes left on another item"
+        "description": "Check User A’s lobby view updates instantly showing User B’s presence"
       },
       {
         "type": "assertion",
-        "description": "Verify the swipe action is immediately reflected on User A's interface"
+        "description": "Verify the option to start the session appears after both joined"
       }
     ]
   },
   {
     "id": "TC011",
-    "title": "Supplier Search Returns Results under 200ms",
-    "description": "Verify that the supplier search query returns accurate results within 200 milliseconds.",
+    "title": "Collaborative Swipe Decision Making in Room",
+    "description": "Verify the interactive swipe interface works for both users in a room and decisions are reflected in real-time for both participants.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Both users join a room and start a session"
+      },
+      {
+        "type": "action",
+        "description": "User A swipes right (like) on a wedding item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that User B's view updates immediately reflecting User A's swipe action"
+      },
+      {
+        "type": "action",
+        "description": "User B swipes left (dislike) on the same item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that User A's view updates immediately reflecting User B's swipe action"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm the item’s final match status reflects the combined user input correctly"
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Supplier Search Returns Results Under 200ms",
+    "description": "Verify that searching for suppliers by keyword and filters returns results within 200 milliseconds.",
     "category": "performance",
     "priority": "High",
     "steps": [
@@ -294,22 +319,22 @@
       },
       {
         "type": "action",
-        "description": "Perform a search query with valid parameters"
+        "description": "Enter a search term and apply filters (category, location, price range)"
+      },
+      {
+        "type": "action",
+        "description": "Submit the search"
       },
       {
         "type": "assertion",
-        "description": "Confirm the search results are displayed within 200 milliseconds"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify search results match query parameters and contain relevant supplier cards"
+        "description": "Measure and confirm search results are returned and displayed in under 200 milliseconds"
       }
     ]
   },
   {
-    "id": "TC012",
-    "title": "Supplier Search Filters by Category, Location, and Price",
-    "description": "Verify search filters correctly filter supplier cards by category, location, and price range independently and combined.",
+    "id": "TC013",
+    "title": "Search Filters by Category, Location, and Price Work Correctly",
+    "description": "Confirm that filters applied in the supplier search page properly refine the results accordingly.",
     "category": "functional",
     "priority": "High",
     "steps": [
@@ -319,56 +344,52 @@
       },
       {
         "type": "action",
-        "description": "Apply filter by category only and submit search"
-      },
-      {
-        "type": "assertion",
-        "description": "Confirm all results match the selected category"
+        "description": "Select a supplier category filter"
       },
       {
         "type": "action",
-        "description": "Apply filter by location only and submit search"
-      },
-      {
-        "type": "assertion",
-        "description": "Confirm all results are from the selected location"
+        "description": "Select a location filter"
       },
       {
         "type": "action",
-        "description": "Apply filter by price range only and submit search"
-      },
-      {
-        "type": "assertion",
-        "description": "Confirm all results fall within the price range"
+        "description": "Set a price range filter"
       },
       {
         "type": "action",
-        "description": "Apply combined filters for category, location, and price and submit search"
+        "description": "Submit the search"
       },
       {
         "type": "assertion",
-        "description": "Confirm returned results satisfy all combined filter criteria"
+        "description": "Verify all displayed suppliers match the selected category"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify all displayed suppliers are within the selected location"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify all displayed suppliers have prices within the selected price range"
       }
     ]
   },
   {
-    "id": "TC013",
+    "id": "TC014",
     "title": "Supplier Cards Display Images, Ratings, and Functional Shortlist Button",
-    "description": "Verify supplier cards show correct images, ratings, and the shortlist/like button works correctly to add or remove supplier from shortlist.",
+    "description": "Verify that supplier cards on the search results render correctly with accurate images, ratings, and the shortlist button works as expected.",
     "category": "ui",
     "priority": "Medium",
     "steps": [
       {
         "type": "action",
-        "description": "Perform a supplier search returning multiple results"
+        "description": "Perform a supplier search that returns multiple results"
       },
       {
         "type": "assertion",
-        "description": "Verify each supplier card displays an image"
+        "description": "Check each supplier card displays an image related to the supplier"
       },
       {
         "type": "assertion",
-        "description": "Verify each supplier card displays the rating"
+        "description": "Verify the rating stars are visible and correspond with supplier rating data"
       },
       {
         "type": "action",
@@ -376,40 +397,152 @@
       },
       {
         "type": "assertion",
-        "description": "Confirm supplier is added to shortlist and UI updates accordingly"
-      },
-      {
-        "type": "action",
-        "description": "Click the shortlist button again to remove the supplier"
-      },
-      {
-        "type": "assertion",
-        "description": "Confirm supplier is removed from shortlist and UI updates"
+        "description": "Confirm the supplier is added to the shortlist and button state updates accordingly"
       }
     ]
   },
   {
-    "id": "TC014",
-    "title": "Shortlisted Suppliers Integrated into Matching Rooms",
-    "description": "Verify shortlisted suppliers can be seen and are available to be used inside decision-making rooms for collaborative swiping.",
+    "id": "TC015",
+    "title": "Shortlisted Suppliers Integration into Matching Rooms",
+    "description": "Verify that suppliers shortlisted from search can be integrated and accessed inside decision-making rooms for collaborative swiping.",
     "category": "functional",
     "priority": "High",
     "steps": [
       {
         "type": "action",
-        "description": "Shortlist multiple suppliers from the search page"
+        "description": "Shortlist one or more suppliers from the search page"
       },
       {
         "type": "action",
-        "description": "Create or join a matching room"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to the swiping interface inside the room"
+        "description": "Navigate to an existing matching room"
       },
       {
         "type": "assertion",
-        "description": "Verify the shortlisted suppliers appear as swipeable items"
+        "description": "Confirm shortlisted suppliers appear as options for swiping in the room"
+      },
+      {
+        "type": "action",
+        "description": "Perform swipe actions on shortlisted suppliers"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify swipe decisions are reflected correctly and in realtime"
+      }
+    ]
+  },
+  {
+    "id": "TC016",
+    "title": "Persistent Authentication State Across Sessions",
+    "description": "Verify that authentication state persists even after closing and reopening the browser or tab.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login successfully with valid credentials"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify user is logged in and dashboard is accessible"
+      },
+      {
+        "type": "action",
+        "description": "Close browser or tab"
+      },
+      {
+        "type": "action",
+        "description": "Reopen the application in a new tab or browser window"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user remains authenticated and can access protected pages without re-login"
+      }
+    ]
+  },
+  {
+    "id": "TC017",
+    "title": "Error Handling for Create Room with Missing Category",
+    "description": "Verify that an attempt to create a room without selecting a wedding category is gracefully handled with an error message.",
+    "category": "error handling",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to create room page from dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Try to submit the form without selecting any category"
+      },
+      {
+        "type": "assertion",
+        "description": "Check that an error message is displayed requiring a category selection"
+      },
+      {
+        "type": "assertion",
+        "description": "Ensure room creation is blocked until a valid category is selected"
+      }
+    ]
+  },
+  {
+    "id": "TC018",
+    "title": "UI Responsiveness of Supplier Cards",
+    "description": "Verify supplier cards layout and components render correctly on various screen sizes including mobile, tablet, and desktop.",
+    "category": "ui",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open supplier search on desktop resolution"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify supplier cards are displayed properly in grid layout without overflow or clipping"
+      },
+      {
+        "type": "action",
+        "description": "Resize viewport to tablet dimensions"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm cards reflow appropriately and remain fully visible"
+      },
+      {
+        "type": "action",
+        "description": "Resize viewport to mobile dimensions"
+      },
+      {
+        "type": "assertion",
+        "description": "Check that cards stack vertically and UI elements remain accessible"
+      }
+    ]
+  },
+  {
+    "id": "TC019",
+    "title": "Room Session Recovery After User Disconnect",
+    "description": "Verify that if a user disconnects and later reconnects to a room session, their state and selections are restored accurately.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Join an active matching room and begin swiping"
+      },
+      {
+        "type": "action",
+        "description": "Simulate network disconnect or close browser tab"
+      },
+      {
+        "type": "action",
+        "description": "Reconnect to the application and join the same room"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify user’s previous swipes and session state are restored correctly"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm real-time synchronization resumes with the partner"
       }
     ]
   }

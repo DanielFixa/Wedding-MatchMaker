@@ -48,23 +48,23 @@ async def run_test():
         # -> Navigate to http://localhost:3000
         await page.goto("http://localhost:3000", wait_until="commit", timeout=10000)
         
-        # -> Click the 'Register' link to open the registration page/form.
+        # -> Click the 'Register' button to open the registration form (index 49).
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/main/div/a[2]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Click the Register button/link on the homepage again to open the registration page/form (use element index 55).
+        # -> Open the registration form by clicking the Register button (index 49) so the duplicate-email test can be performed.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/main/div/a[2]').nth(0)
         await page.wait_for_timeout(3000); await elem.click(timeout=5000)
         
-        # -> Fill the registration form (full names, email, password) and submit by clicking Create Account.
+        # -> Fill the registration form with an already-registered email (you@teste.com) and valid password, then submit the form to verify duplicate-email handling.
         frame = context.pages[-1]
         # Input text
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[1]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('You Tester & Partner')
+        await page.wait_for_timeout(3000); await elem.fill('Test Couple')
         
         frame = context.pages[-1]
         # Input text
@@ -76,29 +76,7 @@ async def run_test():
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[3]/input').nth(0)
         await page.wait_for_timeout(3000); await elem.fill('Danielfixa@2')
         
-        # -> Click the 'Create Account' button to submit the registration form and observe the resulting page/state (use element index 342).
-        frame = context.pages[-1]
-        # Click element
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
-        await page.wait_for_timeout(3000); await elem.click(timeout=5000)
-        
-        # -> Attempt registration with the alternate test credential (you@teste1.com). Fill full name, email, password with User B values and submit Create Account, then observe result.
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[2]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('You Tester & Partner B')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[3]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('you@teste1.com')
-        
-        frame = context.pages[-1]
-        # Input text
-        elem = frame.locator('xpath=html/body/div[2]/div[2]/form/div[4]/input').nth(0)
-        await page.wait_for_timeout(3000); await elem.fill('Danielfixa@2')
-        
-        # -> Click the 'Create Account' button to submit registration for you@teste1.com and observe the resulting page/state (use element index 342).
+        # -> Click the Create Account button to submit the registration form and then check the page for a duplicate-email error message.
         frame = context.pages[-1]
         # Click element
         elem = frame.locator('xpath=html/body/div[2]/div[2]/form/button').nth(0)
@@ -106,10 +84,15 @@ async def run_test():
         
         # --> Assertions to verify final state
         frame = context.pages[-1]
-        try:
-            await expect(frame.locator('text=Registration Successful').first).to_be_visible(timeout=3000)
-        except AssertionError:
-            raise AssertionError("Test case failed: The test attempted to verify that a new user (you@teste.com) could register successfully and receive a persistent authenticated session — the expected 'Registration Successful' message or authenticated state did not appear")
+        # -> Assertions: verify duplicate-email error is shown and registration did not proceed
+        frame = context.pages[-1]
+        await page.wait_for_timeout(2000)
+        # Check that the duplicate-email error message is displayed
+        err = frame.locator("text=User already registered")
+        assert await err.count() > 0, "Expected duplicate-email error 'User already registered' to be displayed"
+        # Confirm the registration did not proceed by ensuring the Create Account button is still visible
+        create_btn = frame.locator("text=Create Account")
+        assert await create_btn.is_visible(), "Registration proceeded unexpectedly; 'Create Account' button should still be visible"
         await asyncio.sleep(5)
 
     finally:
