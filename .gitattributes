@@ -1,0 +1,2 @@
+testsprite_tests/* linguist-vendored
+*.py linguist-detectable=false
