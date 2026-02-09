@@ -48,13 +48,15 @@ export default function GameInterface({ roomId, images, targetVotes }: GameInter
         }
     }, [currentVoteCount, targetVotes, hydrated, roomId, router]);
 
-    // REALTIME SUBSCRIPTION
+    // REALTIME SUBSCRIPTIONS
     useEffect(() => {
         if (!hydrated) return;
 
-        console.log(`Game: Subscribing to votes for room ${roomId}`);
-        const channel = supabase
-            .channel(`game_sync:${roomId}`)
+        console.log(`Game: Subscribing to events for room ${roomId}`);
+
+        // 1. Listen for VOTES (Incremental updates)
+        const voteChannel = supabase
+            .channel(`game_votes:${roomId}`)
             .on(
                 'postgres_changes',
                 {
@@ -73,13 +75,72 @@ export default function GameInterface({ roomId, images, targetVotes }: GameInter
                 }
             )
             .subscribe((status) => {
-                console.log(`Game: Realtime status: ${status}`);
+                console.log(`Game: Vote subscription status: ${status}`);
+            });
+
+        // 2. Listen for ROOM STATUS (Completion signal)
+        const roomChannel = supabase
+            .channel(`game_room_status:${roomId}`)
+            .on(
+                'postgres_changes',
+                {
+                    event: 'UPDATE',
+                    schema: 'public',
+                    table: 'rooms',
+                    filter: `id=eq.${roomId}`
+                },
+                (payload) => {
+                    const newStatus = payload.new.status;
+                    if (newStatus === 'finished') {
+                        console.log('Game: Room finished signal received! Redirecting...');
+                        router.push(`/room/${roomId}/results`);
+                    }
+                }
+            )
+            .subscribe((status) => {
+                console.log(`Game: Room subscription status: ${status}`);
             });
 
         return () => {
-            supabase.removeChannel(channel);
+            supabase.removeChannel(voteChannel);
+            supabase.removeChannel(roomChannel);
         };
-    }, [roomId, supabase, hydrated, targetVotes]);
+    }, [roomId, supabase, hydrated, targetVotes, router]);
+
+    // FALLBACK POLLING (Resilience for mobile/background tabs)
+    useEffect(() => {
+        if (!isFinished) return; // Only poll if we are done and waiting
+
+        const interval = setInterval(async () => {
+            console.log('Game: Polling for completion status...');
+
+            // 1. Check if room is marked finished
+            const { data: room } = await supabase
+                .from('rooms')
+                .select('status')
+                .eq('id', roomId)
+                .single();
+
+            if (room && room.status === 'finished') {
+                console.log('Game: Polling found FINISHED status! Redirecting...');
+                router.push(`/room/${roomId}/results`);
+                return;
+            }
+
+            // 2. Sync vote count (in case we missed packets)
+            const { count } = await supabase
+                .from('votes')
+                .select('*', { count: 'exact', head: true })
+                .eq('room_id', roomId);
+
+            if (count !== null) {
+                setCurrentVoteCount(count);
+            }
+
+        }, 3000); // Check every 3 seconds
+
+        return () => clearInterval(interval);
+    }, [isFinished, roomId, supabase, router]);
 
 
     // GAME LOGIC
@@ -136,7 +197,7 @@ export default function GameInterface({ roomId, images, targetVotes }: GameInter
                         />
                     </div>
                     <p className="mt-2 text-xs text-gray-400 animate-pulse">
-                        Syncing with server...
+                        Syncing with server... (Auto-checking status)
                     </p>
 
                     {/* Fallback Button */}
