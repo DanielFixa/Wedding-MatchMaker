@@ -27,8 +27,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen relative`}
       >
+        {/* Global Background */}
+        <div className="fixed inset-0 z-[-1]">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center" />
+          <div className="absolute inset-0 bg-white/40 dark:bg-black/40 backdrop-blur-sm" />
+        </div>
+
         {children}
         <SupportButton />
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />

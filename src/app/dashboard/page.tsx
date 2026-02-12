@@ -66,8 +66,8 @@ export default function Dashboard() {
     };
 
     return (
-        <div className="min-h-screen bg-[url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center flex flex-col">
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm z-0" />
+        <div className="min-h-screen flex flex-col">
+            {/* Background moved to layout.tsx */}
 
             <header className="relative z-10 w-full p-6 flex justify-between items-center text-white">
                 <div className="flex items-center gap-2">
@@ -284,8 +284,8 @@ export default function Dashboard() {
                                     <div className="bg-black/40 hover:bg-black/60 border border-white/10 hover:border-gold/50 rounded-xl p-6 transition-all relative overflow-hidden">
                                         <div className="absolute top-0 right-0 p-2">
                                             <span className={`text-xs px-2 py-1 rounded-full ${room.status === 'finished' ? 'bg-green-500/20 text-green-300' :
-                                                    room.status === 'active' ? 'bg-blue-500/20 text-blue-300' :
-                                                        'bg-yellow-500/20 text-yellow-300'
+                                                room.status === 'active' ? 'bg-blue-500/20 text-blue-300' :
+                                                    'bg-yellow-500/20 text-yellow-300'
                                                 }`}>
                                                 {room.status.toUpperCase()}
                                             </span>

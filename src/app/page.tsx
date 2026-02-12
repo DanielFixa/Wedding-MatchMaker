@@ -13,8 +13,8 @@ export default async function Home() {
 
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-[url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center">
-      <div className="absolute inset-0 bg-white/40 dark:bg-black/40 backdrop-blur-sm" />
+    <div className="min-h-screen flex flex-col items-center justify-center p-8">
+      {/* Background moved to layout.tsx */}
 
       <main className="relative z-10 text-center glass-panel p-12 rounded-2xl shadow-2xl max-w-2xl animate-in fade-in zoom-in duration-700">
         <h1 className="text-5xl font-serif text-gold mb-6">Wedding Matchmaker</h1>
