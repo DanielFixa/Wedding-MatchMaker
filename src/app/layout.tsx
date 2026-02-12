@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen relative`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen relative bg-transparent text-foreground`}
       >
         {/* Global Background */}
         <div className="fixed inset-0 z-[-1]">
