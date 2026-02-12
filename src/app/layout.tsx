@@ -32,7 +32,7 @@ export default function RootLayout({
         {/* Global Background */}
         <div className="fixed inset-0 z-[-1]">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center" />
-          <div className="absolute inset-0 bg-white/40 dark:bg-black/40 backdrop-blur-sm" />
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
         </div>
 
         {children}

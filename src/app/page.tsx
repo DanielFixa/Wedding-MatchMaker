@@ -18,7 +18,7 @@ export default async function Home() {
 
       <main className="relative z-10 text-center glass-panel p-12 rounded-2xl shadow-2xl max-w-2xl animate-in fade-in zoom-in duration-700">
         <h1 className="text-5xl font-serif text-gold mb-6">Wedding Matchmaker</h1>
-        <p className="text-xl text-gray-700 dark:text-gray-200 mb-8 font-light">
+        <p className="text-xl text-gray-200 mb-8 font-light">
           Make decisions together. Swipe your way to the perfect wedding.
         </p>
 
